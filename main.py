@@ -4,7 +4,6 @@ from rich.text import Text
 
 import psutil
 import time
-import sys
 import os
 
 
@@ -74,19 +73,11 @@ def main():
 
 
 
-    print("\n" * 3)
     console.print(table)
-    print("\n" * 3)
 
 
 
 if __name__ == '__main__':
-    sys.stdout.write('\033[?25l')
-    try:
-        while True:
-            main()
-            time.sleep(2)
-
-
-    finally:
-        sys.stdout.write('\033[?25l')
+    while True:
+        main()
+        time.sleep(2)
