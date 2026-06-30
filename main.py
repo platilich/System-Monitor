@@ -35,7 +35,14 @@ def get_temp():
         temps = psutil.sensors_temperatures()
 
 
-        return f'{temps} °C'
+        temp_cpu = temps['cpu_thermal'][0].current
+        temp_rp1_adc = temps['rp1_adc'][1].current
+
+        print(temp_cpu)
+        print(temp_rp1_adc)
+
+
+        return temp_cpu, temp_rp1_adc
 
     except Exception as e:
         return f'{55}°C'
@@ -58,7 +65,9 @@ def main():
     table.add_column('CPU', justify='center', width=10)
     table.add_column('RAM', justify='center', width=10)
     table.add_column('Disk', justify='center', width=10)
-    table.add_column('Temp', justify='center', width=10)
+    table.add_column('CPU', justify='center', width=10)
+    table.add_column('rp1_adc', justify='center', width=10)
+
 
 
 
@@ -67,7 +76,9 @@ def main():
     disk = str(get_disk())
     temp = str(get_temp())
 
-    table.add_row(cpu, ram, disk, temp)
+
+
+    table.add_row(cpu, ram, disk, f'{temp[0]}°C', f'{temp[1]}°C')
 
     os.system('clear')
 
